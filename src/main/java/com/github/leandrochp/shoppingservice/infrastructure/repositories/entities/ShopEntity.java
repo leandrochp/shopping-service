@@ -31,6 +31,7 @@ public class ShopEntity {
 
     public Shop toModel() {
         Shop shop = new Shop();
+        shop.setId(this.id);
         shop.setIdentifier(this.identifier);
         shop.setStatus(this.status);
         shop.setDateShop(this.dateShop);
@@ -44,6 +45,7 @@ public class ShopEntity {
     public static ShopEntity toEntity(Shop shop) {
         ShopEntity shopEntity = new ShopEntity();
 
+        shopEntity.setId(shop.getId());
         shopEntity.setIdentifier(shop.getIdentifier());
         shopEntity.setStatus(shop.getStatus());
         shopEntity.setDateShop(shop.getDateShop());
@@ -52,19 +54,22 @@ public class ShopEntity {
         for (ShopItemEntity shopItemEntity : shopEntity.getItems()) {
             shopItemEntity.setShopEntity(shopEntity);
         }
+
         return shopEntity;
     }
 
     private static List<ShopItemEntity> getShopItemEntities(List<ShopItem> shopItems) {
-        List<ShopItemEntity> items = new ArrayList<>();
+        List<ShopItemEntity> shopItemEntities = new ArrayList<>();
         for (ShopItem shopItem : shopItems) {
             ShopItemEntity shopItemEntity = new ShopItemEntity();
+            shopItemEntity.setId(shopItem.getId());
             shopItemEntity.setProductIdentifier(shopItem.getProductIdentifier());
             shopItemEntity.setAmount(shopItem.getAmount());
             shopItemEntity.setPrice(shopItem.getPrice());
 
-            items.add(shopItemEntity);
+            shopItemEntities.add(shopItemEntity);
         }
-        return items;
+
+        return shopItemEntities;
     }
 }

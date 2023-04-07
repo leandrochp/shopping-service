@@ -27,6 +27,7 @@ public class ShopItemEntity {
 
     public ShopItem toModel() {
         ShopItem shopItem = new ShopItem();
+        shopItem.setId(this.id);
         shopItem.setProductIdentifier(this.productIdentifier);
         shopItem.setAmount(this.amount);
         shopItem.setPrice(this.price);

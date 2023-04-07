@@ -1,12 +1,13 @@
 package com.github.leandrochp.shoppingservice.infrastructure.repositories.entities;
 
 import com.github.leandrochp.shoppingservice.domain.entities.Product;
-import com.github.leandrochp.shoppingservice.domain.entities.ShopItem;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @Entity(name = "product")
 public class ProductEntity {
 
@@ -18,7 +19,6 @@ public class ProductEntity {
     private String identifier;
 
     private Integer amount;
-
 
     public Product toModel() {
         Product product = new Product();

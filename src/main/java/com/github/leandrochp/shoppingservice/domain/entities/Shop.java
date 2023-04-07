@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Shop {
 
+    private Long id;
     private String identifier;
     private String status;
     private LocalDate dateShop;
