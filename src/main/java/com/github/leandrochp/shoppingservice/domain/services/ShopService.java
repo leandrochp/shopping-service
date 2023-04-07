@@ -9,4 +9,5 @@ public interface ShopService {
     List<Shop> findAll();
     Shop save(Shop shop);
     void validate(Shop shop);
+    void updateStatus(Shop shop);
 }

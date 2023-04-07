@@ -10,13 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReceiveShopTopicMessage {
 
-    private static final String SHOP_TOPIC_NAME = "SHOP_TOPIC" ;
+    private static final String SHOP_TOPIC_NAME = "SHOP_TOPIC";
+    private static final String SHOP_TOPIC_EVENT_NAME = "SHOP_TOPIC_EVENT";
 
     private final ShopService shopService;
 
-    @KafkaListener(topics = SHOP_TOPIC_NAME, groupId = "group_id")
+    @KafkaListener(topics = SHOP_TOPIC_NAME, groupId = "group")
     public void listenShopTopic(Shop shop) {
         shopService.validate(shop);
     }
 
+    @KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group")
+    public void listenShopTopicEvent(Shop shop) {
+        shopService.updateStatus(shop);
+    }
 }

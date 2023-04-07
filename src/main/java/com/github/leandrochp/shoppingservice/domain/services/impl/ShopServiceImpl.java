@@ -34,7 +34,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop save(Shop shop) {
-        log.debug("Generating shopping identifier.");
+        log.debug("Generating shop identifier.");
         shop.setIdentifier(UUID.randomUUID().toString());
         shop.setDateShop(LocalDate.now());
 
@@ -49,10 +49,27 @@ public class ShopServiceImpl implements ShopService {
         return shop;
     }
 
+    @Override
+    public void updateStatus(Shop shop) {
+        final String status = shop.getStatus();
+
+        try {
+            log.debug("Status of the shop received in topic: [identifier: {}].", shop.getIdentifier());
+
+            shop = shopRepository.findByIdentifier(shop.getIdentifier());
+            shop.setStatus(status);
+            shopRepository.save(shop);
+
+        } catch (Exception ex) {
+            log.error("Error shop processing [identifier: {}]. Error: {}", shop.getIdentifier(), ex.getMessage());
+        }
+    }
+
+    @Override
     public void validate(Shop shop) {
         try {
             boolean success;
-            log.debug("Purchase received in topic: [identifier: {}].", shop.getIdentifier());
+            log.debug("Shop received in topic: [identifier: {}].", shop.getIdentifier());
 
             success = true;
             for (ShopItem shopItem : shop.getItems()) {
@@ -70,7 +87,7 @@ public class ShopServiceImpl implements ShopService {
             }
 
         } catch (Exception ex) {
-            log.error("Error purchase processing [identifier: {}]. Error: {}", shop.getIdentifier(), ex.getMessage());
+            log.error("Error shop processing [identifier: {}]. Error: {}", shop.getIdentifier(), ex.getMessage());
         }
     }
 
@@ -79,14 +96,14 @@ public class ShopServiceImpl implements ShopService {
     }
 
     private void sendSuccess(Shop shop) {
-        log.debug("Purchase [identifier: {}] successful.", shop.getIdentifier());
+        log.debug("Shop [identifier: {}] successful.", shop.getIdentifier());
         shop.setStatus(ShopStatus.SUCCESS.name());
 
         sendTopicEventMessage.sendTopicEventMessage(shop);
     }
 
     private void sendError(Shop shop) {
-        log.debug("Error purchase processing [identifier: {}].", shop.getIdentifier());
+        log.debug("Error shop processing [identifier: {}].", shop.getIdentifier());
         shop.setStatus(ShopStatus.ERROR.name());
 
         sendTopicEventMessage.sendTopicEventMessage(shop);
