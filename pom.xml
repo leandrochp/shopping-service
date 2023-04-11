@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.leandrochp</groupId>
-	<artifactId>shoppingservice</artifactId>
+	<artifactId>shopping-service</artifactId>
 	<version>1.0.0</version>
 	<name>shopping-service</name>
 	<description>Shopping Service</description>
