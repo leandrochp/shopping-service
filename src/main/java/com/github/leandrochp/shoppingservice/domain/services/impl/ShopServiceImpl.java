@@ -54,7 +54,7 @@ public class ShopServiceImpl implements ShopService {
         final String status = shop.getStatus();
 
         try {
-            log.debug("Status of the shop received in topic: [identifier: {}].", shop.getIdentifier());
+            log.debug("Status: {} of the shop received in topic: [identifier: {}].", status, shop.getIdentifier());
 
             shop = shopRepository.findByIdentifier(shop.getIdentifier());
             shop.setStatus(status);
