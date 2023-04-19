@@ -1,4 +1,4 @@
-FROM maven:3.8.6-openjdk-8 AS BUILD_IMAGE
+FROM maven:3.8.6-openjdk-8-slim AS BUILD_IMAGE
 COPY . /home/source/java
 WORKDIR /home/source/java
 
