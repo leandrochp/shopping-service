@@ -15,5 +15,4 @@ public class Shop {
     private String status;
     private LocalDate dateShop;
     private List<ShopItem> items;
-
 }

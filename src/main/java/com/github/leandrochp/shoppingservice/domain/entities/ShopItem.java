@@ -11,5 +11,4 @@ public class ShopItem {
     private String productIdentifier;
     private Integer amount;
     private Float price;
-
 }
