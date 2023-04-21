@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class ShopServiceImpl implements ShopService {
         return shopRepository.findAll();
     }
 
+    @Transactional
     @Override
     public Shop save(Shop shop) {
         log.debug("Generating shop identifier.");
@@ -49,6 +51,7 @@ public class ShopServiceImpl implements ShopService {
         return shop;
     }
 
+    @Transactional
     @Override
     public void updateStatus(Shop shop) {
         final String status = shop.getStatus();
@@ -61,7 +64,8 @@ public class ShopServiceImpl implements ShopService {
             shopRepository.save(shop);
 
         } catch (Exception ex) {
-            log.error("Error shop processing [identifier: {}]. Error: {}", shop.getIdentifier(), ex.getMessage());
+            log.error("Error updating status shop [identifier: {}]. Error: {}", shop.getIdentifier(),
+                    ex.getMessage());
         }
     }
 
@@ -82,12 +86,12 @@ public class ShopServiceImpl implements ShopService {
             }
 
             if (success) sendSuccess(shop);
-            else {
+            else
                 sendError(shop);
-            }
 
         } catch (Exception ex) {
-            log.error("Error shop processing [identifier: {}]. Error: {}", shop.getIdentifier(), ex.getMessage());
+            log.error("Error validating shop [identifier: {}]. Error: {}", shop.getIdentifier(),
+                    ex.getMessage());
         }
     }
 
@@ -103,7 +107,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     private void sendError(Shop shop) {
-        log.debug("Error shop processing [identifier: {}].", shop.getIdentifier());
+        log.debug("Shop [identifier: {}] error.", shop.getIdentifier());
         shop.setStatus(ShopStatus.ERROR.name());
 
         sendTopicEventMessage.sendTopicEventMessage(shop);
