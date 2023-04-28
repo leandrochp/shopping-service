@@ -15,9 +15,11 @@ public class ShopMapper {
     public Shop toModel(ShopRequest shopRequest) {
         Shop shop = new Shop();
         shop.setBuyerIdentifier(shopRequest.getBuyerIdentifier());
-        shop.setItems(
-                shopRequest.getItems().stream().map(ShopItemRequest::toModel).collect(Collectors.toList())
-        );
+        if (shopRequest.getItems() != null) {
+            shop.setItems(
+                    shopRequest.getItems().stream().map(ShopItemRequest::toModel).collect(Collectors.toList())
+            );
+        }
         return shop;
     }
 
