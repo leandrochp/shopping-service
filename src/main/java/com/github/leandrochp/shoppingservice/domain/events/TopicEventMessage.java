@@ -4,5 +4,5 @@ import com.github.leandrochp.shoppingservice.domain.entities.Shop;
 
 public interface TopicEventMessage {
 
-    void sendTopicEventMessage(Shop msg);
+    void sendTopicEvent(Shop shop);
 }

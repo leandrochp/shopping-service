@@ -25,8 +25,8 @@ public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
     private final ProductRepository productRepository;
-    private final TopicMessage sendTopicMessage;
-    private final TopicEventMessage sendTopicEventMessage;
+    private final TopicMessage topicMessage;
+    private final TopicEventMessage topicEventMessage;
 
     @Override
     public List<Shop> findAll() {
@@ -36,17 +36,22 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     @Override
     public Shop save(Shop shop) {
-        log.debug("Generating shop identifier.");
-        shop.setIdentifier(UUID.randomUUID().toString());
-        shop.setDateShop(LocalDate.now());
+        try {
+            shop.setIdentifier(UUID.randomUUID().toString());
+            log.debug("Saving shop [identifier: {}].", shop.getIdentifier());
+            shop.setDateShop(LocalDate.now());
 
-        shop.setStatus(ShopStatus.PENDING.name());
+            log.debug("Saving shop [identifier: {}] in the database.", shop.getIdentifier());
+            shopRepository.save(shop);
 
-        log.debug("Saving shop [identifier: {}] in the database.", shop.getIdentifier());
-        shopRepository.save(shop);
+            log.debug("Notifying listener of the shop [identifier: {}].", shop.getIdentifier());
+            topicMessage.sendTopic(shop);
 
-        log.debug("Notifying listener of the shop [identifier: {}].", shop.getIdentifier());
-        sendTopicMessage.sendTopicMessage(shop);
+        } catch (Exception ex) {
+            log.error("Error saving shop [identifier: {}]. Error: {}", shop.getIdentifier(),
+                    ex.getMessage());
+            throw ex;
+        }
 
         return shop;
     }
@@ -55,7 +60,6 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public void updateStatus(Shop shop) {
         final String status = shop.getStatus();
-
         try {
             log.debug("Updating status: {} shop [identifier: {}].", status, shop.getIdentifier());
 
@@ -66,32 +70,31 @@ public class ShopServiceImpl implements ShopService {
         } catch (Exception ex) {
             log.error("Error updating status shop [identifier: {}]. Error: {}", shop.getIdentifier(),
                     ex.getMessage());
+            throw ex;
         }
     }
 
     @Override
     public void validate(Shop shop) {
         try {
-            boolean success;
             log.debug("Validating shop [identifier: {}].", shop.getIdentifier());
 
-            success = true;
+            shop.setStatus(ShopStatus.SUCCESS.name());
             for (ShopItem shopItem : shop.getItems()) {
                 Product product = productRepository.findByIdentifier(shopItem.getProductIdentifier());
 
                 if (!isValidShop(shopItem, product)) {
-                    success = false;
+                    shop.setStatus(ShopStatus.ERROR.name());
                     break;
                 }
             }
-
-            if (success) sendSuccess(shop);
-            else
-                sendError(shop);
+            log.debug("Send shop [identifier: {}] status {}.", shop.getIdentifier(), shop.getStatus());
+            topicEventMessage.sendTopicEvent(shop);
 
         } catch (Exception ex) {
             log.error("Error validating shop [identifier: {}]. Error: {}", shop.getIdentifier(),
                     ex.getMessage());
+            throw ex;
         }
     }
 
@@ -99,17 +102,4 @@ public class ShopServiceImpl implements ShopService {
         return product != null && product.getAmount() >= shopItem.getAmount();
     }
 
-    private void sendSuccess(Shop shop) {
-        log.debug("Shop [identifier: {}] successfully.", shop.getIdentifier());
-        shop.setStatus(ShopStatus.SUCCESS.name());
-
-        sendTopicEventMessage.sendTopicEventMessage(shop);
-    }
-
-    private void sendError(Shop shop) {
-        log.debug("Shop [identifier: {}] error.", shop.getIdentifier());
-        shop.setStatus(ShopStatus.ERROR.name());
-
-        sendTopicEventMessage.sendTopicEventMessage(shop);
-    }
 }

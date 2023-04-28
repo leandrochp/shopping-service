@@ -1,5 +1,6 @@
 package com.github.leandrochp.shoppingservice.domain.entities;
 
+import com.github.leandrochp.shoppingservice.domain.enums.ShopStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,7 @@ public class Shop {
     private Long id;
     private String buyerIdentifier;
     private String identifier;
-    private String status;
+    private String status = ShopStatus.PENDING.name();
     private LocalDate dateShop;
     private List<ShopItem> items;
 }
