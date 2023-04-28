@@ -48,8 +48,7 @@ public class ShopServiceImpl implements ShopService {
             topicMessage.sendTopic(shop);
 
         } catch (Exception ex) {
-            log.error("Error saving shop [identifier: {}]. Error: {}", shop.getIdentifier(),
-                    ex.getMessage());
+            log.error("Error saving shop [identifier: {}]. Error: {}", shop.getIdentifier(), ex);
             throw ex;
         }
 
@@ -68,18 +67,20 @@ public class ShopServiceImpl implements ShopService {
             shopRepository.save(shop);
 
         } catch (Exception ex) {
-            log.error("Error updating status shop [identifier: {}]. Error: {}", shop.getIdentifier(),
-                    ex.getMessage());
+            log.error("Error updating status shop [identifier: {}]. Error: {}", shop.getIdentifier(), ex);
             throw ex;
         }
     }
 
     @Override
-    public void validate(Shop shop) {
+    public void validate(Shop shop) throws Exception {
         try {
             log.debug("Validating shop [identifier: {}].", shop.getIdentifier());
-
             shop.setStatus(ShopStatus.SUCCESS.name());
+
+            if (shop.getItems() == null || shop.getItems().isEmpty()) {
+                throw new Exception(String.format("Shop identifier: %s without item(s)", shop.getIdentifier()));
+            }
             for (ShopItem shopItem : shop.getItems()) {
                 Product product = productRepository.findByIdentifier(shopItem.getProductIdentifier());
 

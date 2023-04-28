@@ -15,13 +15,13 @@ public class SendShopTopicMessage implements TopicMessage, TopicEventMessage {
     private final KafkaTemplate<String, Shop> kafkaTemplate;
 
     @Override
-    public void sendTopicMessage(Shop msg) {
-        kafkaTemplate.send(TopicName.SHOP_TOPIC.name(), msg.getBuyerIdentifier(), msg);
+    public void sendTopic(Shop shop) {
+        kafkaTemplate.send(TopicName.SHOP_TOPIC.name(), shop.getBuyerIdentifier(), shop);
     }
 
     @Override
-    public void sendTopicEventMessage(Shop msg) {
-        kafkaTemplate.send(TopicName.SHOP_TOPIC_EVENT.name(), msg);
+    public void sendTopicEvent(Shop shop) {
+        kafkaTemplate.send(TopicName.SHOP_TOPIC_EVENT.name(), shop);
     }
 
 }

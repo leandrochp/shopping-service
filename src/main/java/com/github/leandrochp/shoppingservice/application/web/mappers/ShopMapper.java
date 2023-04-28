@@ -29,10 +29,11 @@ public class ShopMapper {
         response.setIdentifier(shop.getIdentifier());
         response.setStatus(shop.getStatus());
         response.setDateShop(shop.getDateShop());
-        response.setItems(
-                shop.getItems().stream().map(ShopItemResponse::toResponse
-        ).collect(Collectors.toList()));
-
+        if (shop.getItems() != null) {
+            response.setItems(
+                    shop.getItems().stream().map(ShopItemResponse::toResponse).collect(Collectors.toList())
+            );
+        }
         return response;
     }
 }

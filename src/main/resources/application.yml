@@ -15,9 +15,10 @@ spring:
     console.enabled: true
     console.path: /h2-console
     console.settings.web-allow-others: true
-
   kafka:
     bootstrap-servers: ${KAFKA_SERVER_NAME}:${KAFKA_SERVER_PORT}
+  jackson:
+    default-property-inclusion: non-null
 
 logging:
   level:

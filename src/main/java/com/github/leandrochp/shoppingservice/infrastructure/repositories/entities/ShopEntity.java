@@ -40,7 +40,7 @@ public class ShopEntity {
         shop.setStatus(this.status);
         shop.setDateShop(this.dateShop);
         shop.setItems(
-                this.getItems().stream().map(ShopItemEntity::toModel).collect(Collectors.toList())
+                this.items.stream().map(ShopItemEntity::toModel).collect(Collectors.toList())
         );
 
         return shop;
@@ -54,27 +54,26 @@ public class ShopEntity {
         shopEntity.setIdentifier(shop.getIdentifier());
         shopEntity.setStatus(shop.getStatus());
         shopEntity.setDateShop(shop.getDateShop());
-
-        shopEntity.setItems(getShopItemEntities(shop.getItems()));
-        for (ShopItemEntity shopItemEntity : shopEntity.getItems()) {
-            shopItemEntity.setShopEntity(shopEntity);
-        }
+        shopEntity.setShopItemEntities(shop.getItems());
 
         return shopEntity;
     }
 
-    private static List<ShopItemEntity> getShopItemEntities(List<ShopItem> shopItems) {
-        List<ShopItemEntity> shopItemEntities = new ArrayList<>();
-        for (ShopItem shopItem : shopItems) {
-            ShopItemEntity shopItemEntity = new ShopItemEntity();
-            shopItemEntity.setId(shopItem.getId());
-            shopItemEntity.setProductIdentifier(shopItem.getProductIdentifier());
-            shopItemEntity.setAmount(shopItem.getAmount());
-            shopItemEntity.setPrice(shopItem.getPrice());
+    private void setShopItemEntities(List<ShopItem> shopItems) {
+        if (shopItems != null) {
+            List<ShopItemEntity> shopItemEntities = new ArrayList<>();
 
-            shopItemEntities.add(shopItemEntity);
+            for (ShopItem shopItem : shopItems) {
+                ShopItemEntity shopItemEntity = new ShopItemEntity();
+                shopItemEntity.setId(shopItem.getId());
+                shopItemEntity.setProductIdentifier(shopItem.getProductIdentifier());
+                shopItemEntity.setAmount(shopItem.getAmount());
+                shopItemEntity.setPrice(shopItem.getPrice());
+                shopItemEntity.setShopEntity(this);
+
+                shopItemEntities.add(shopItemEntity);
+            }
+            this.items = shopItemEntities;
         }
-
-        return shopItemEntities;
     }
 }

@@ -5,5 +5,4 @@ import com.github.leandrochp.shoppingservice.domain.entities.Shop;
 public interface TopicMessage {
 
     void sendTopic(Shop shop);
-    void sendTopicRetry(Shop shop);
 }

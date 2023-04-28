@@ -25,7 +25,7 @@ public class ReceiveShopTopicMessage {
             Shop shop,
             @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
             @Header(KafkaHeaders.RECEIVED_PARTITION_ID) String partitionId,
-            @Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp) {
+            @Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp) throws Exception {
         log.debug(
                 "Shop received in topic: [identifier: {}, key: {}, partition: {}, date: {}].",
                 shop.getIdentifier(),
