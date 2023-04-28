@@ -57,7 +57,7 @@ public class ShopServiceImpl implements ShopService {
         final String status = shop.getStatus();
 
         try {
-            log.debug("Status: {} of the shop received in topic: [identifier: {}].", status, shop.getIdentifier());
+            log.debug("Updating status: {} shop [identifier: {}].", status, shop.getIdentifier());
 
             shop = shopRepository.findByIdentifier(shop.getIdentifier());
             shop.setStatus(status);
@@ -73,7 +73,7 @@ public class ShopServiceImpl implements ShopService {
     public void validate(Shop shop) {
         try {
             boolean success;
-            log.debug("Shop received in topic: [identifier: {}].", shop.getIdentifier());
+            log.debug("Validating shop [identifier: {}].", shop.getIdentifier());
 
             success = true;
             for (ShopItem shopItem : shop.getItems()) {
@@ -100,7 +100,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     private void sendSuccess(Shop shop) {
-        log.debug("Shop [identifier: {}] successful.", shop.getIdentifier());
+        log.debug("Shop [identifier: {}] successfully.", shop.getIdentifier());
         shop.setStatus(ShopStatus.SUCCESS.name());
 
         sendTopicEventMessage.sendTopicEventMessage(shop);

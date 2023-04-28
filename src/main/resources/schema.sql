@@ -1,5 +1,6 @@
 create table shop (
     id bigint primary key auto_increment,
+    buyer_identifier varchar not null,
     identifier varchar not null,
     status varchar not null,
     date_shop date

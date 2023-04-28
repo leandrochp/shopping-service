@@ -9,6 +9,8 @@ import java.util.List;
 @Data
 public class ShopResponse {
 
+    @JsonProperty("buyer_identifier")
+    private String buyerIdentifier;
     private String identifier;
     private String status;
     @JsonProperty("date_shop")

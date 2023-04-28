@@ -20,6 +20,9 @@ public class ShopEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "buyer_identifier")
+    private String buyerIdentifier;
+
     private String identifier;
     private String status;
 
@@ -32,6 +35,7 @@ public class ShopEntity {
     public Shop toModel() {
         Shop shop = new Shop();
         shop.setId(this.id);
+        shop.setBuyerIdentifier(this.buyerIdentifier);
         shop.setIdentifier(this.identifier);
         shop.setStatus(this.status);
         shop.setDateShop(this.dateShop);
@@ -46,6 +50,7 @@ public class ShopEntity {
         ShopEntity shopEntity = new ShopEntity();
 
         shopEntity.setId(shop.getId());
+        shopEntity.setBuyerIdentifier(shop.getBuyerIdentifier());
         shopEntity.setIdentifier(shop.getIdentifier());
         shopEntity.setStatus(shop.getStatus());
         shopEntity.setDateShop(shop.getDateShop());

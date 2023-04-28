@@ -11,6 +11,7 @@ import java.util.List;
 public class Shop {
 
     private Long id;
+    private String buyerIdentifier;
     private String identifier;
     private String status;
     private LocalDate dateShop;

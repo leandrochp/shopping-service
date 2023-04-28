@@ -14,6 +14,7 @@ public class ShopMapper {
 
     public Shop toModel(ShopRequest shopRequest) {
         Shop shop = new Shop();
+        shop.setBuyerIdentifier(shopRequest.getBuyerIdentifier());
         shop.setItems(
                 shopRequest.getItems().stream().map(ShopItemRequest::toModel).collect(Collectors.toList())
         );
@@ -22,6 +23,7 @@ public class ShopMapper {
 
     public ShopResponse toResponse(Shop shop) {
         ShopResponse response = new ShopResponse();
+        response.setBuyerIdentifier(shop.getBuyerIdentifier());
         response.setIdentifier(shop.getIdentifier());
         response.setStatus(shop.getStatus());
         response.setDateShop(shop.getDateShop());

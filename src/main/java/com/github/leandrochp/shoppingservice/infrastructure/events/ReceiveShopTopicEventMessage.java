@@ -4,9 +4,11 @@ import com.github.leandrochp.shoppingservice.domain.entities.Shop;
 import com.github.leandrochp.shoppingservice.domain.services.ShopReportService;
 import com.github.leandrochp.shoppingservice.domain.services.ShopService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class ReceiveShopTopicEventMessage {
@@ -18,11 +20,13 @@ public class ReceiveShopTopicEventMessage {
 
     @KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group")
     public void listenShopTopicEvent(Shop shop) {
+        log.debug("Shop received in topic: [identifier: {}].", shop.getIdentifier());
         shopService.updateStatus(shop);
     }
 
     @KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group_report")
     public void listenShopTopicEventToShopReport(Shop shop) {
+        log.debug("Shop received to increment shop status in topic: [identifier: {}].", shop.getIdentifier());
         shopReportService.incrementShopStatus(shop);
     }
 

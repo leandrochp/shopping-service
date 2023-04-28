@@ -27,7 +27,7 @@ public class ShopReportServiceImpl implements ShopReportService {
     @Override
     public void incrementShopStatus(Shop shop) {
         try {
-            log.debug("Shop received to increment shop status in topic: [identifier: {}].", shop.getIdentifier());
+            log.debug("Increment shop status [identifier: {}].", shop.getIdentifier());
             shopReportRepository.incrementShopStatus(shop.getStatus());
 
         } catch (Exception ex) {
