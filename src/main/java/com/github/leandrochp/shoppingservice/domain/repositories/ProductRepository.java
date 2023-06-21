@@ -1,6 +1,6 @@
 package com.github.leandrochp.shoppingservice.domain.repositories;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Product;
+import com.github.leandrochp.shoppingservice.domain.shopping.Product;
 
 public interface ProductRepository {
 

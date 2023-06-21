@@ -1,7 +1,7 @@
 package com.github.leandrochp.shoppingservice.application.web.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.leandrochp.shoppingservice.domain.entities.ShopItem;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopItem;
 import lombok.Data;
 
 @Data

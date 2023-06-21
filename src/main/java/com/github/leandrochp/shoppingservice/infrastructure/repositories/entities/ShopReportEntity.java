@@ -1,6 +1,6 @@
 package com.github.leandrochp.shoppingservice.infrastructure.repositories.entities;
 
-import com.github.leandrochp.shoppingservice.domain.entities.ShopReport;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopReport;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

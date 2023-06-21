@@ -1,6 +1,6 @@
 package com.github.leandrochp.shoppingservice.domain.events;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
 
 public interface TopicEventMessage {
 

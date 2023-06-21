@@ -1,7 +1,7 @@
 package com.github.leandrochp.shoppingservice.domain.services.impl;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
-import com.github.leandrochp.shoppingservice.domain.entities.ShopReport;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopReport;
 import com.github.leandrochp.shoppingservice.domain.repositories.ShopReportRepository;
 import com.github.leandrochp.shoppingservice.domain.services.ShopReportService;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.github.leandrochp.shoppingservice.domain.services.impl;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Product;
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
-import com.github.leandrochp.shoppingservice.domain.entities.ShopItem;
+import com.github.leandrochp.shoppingservice.domain.shopping.Product;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopItem;
 import com.github.leandrochp.shoppingservice.domain.enums.ShopStatus;
 import com.github.leandrochp.shoppingservice.domain.events.TopicEventMessage;
 import com.github.leandrochp.shoppingservice.domain.events.TopicMessage;
@@ -11,6 +11,7 @@ import com.github.leandrochp.shoppingservice.domain.repositories.ShopRepository;
 import com.github.leandrochp.shoppingservice.domain.services.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -58,7 +59,7 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     @Override
     public void updateStatus(Shop shop) {
-        final String status = shop.getStatus();
+        val status = shop.getStatus();
         try {
             log.debug("Updating status: {} shop [identifier: {}].", status, shop.getIdentifier());
 

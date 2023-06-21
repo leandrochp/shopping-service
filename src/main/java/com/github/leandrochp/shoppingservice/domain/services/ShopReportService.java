@@ -1,7 +1,7 @@
 package com.github.leandrochp.shoppingservice.domain.services;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
-import com.github.leandrochp.shoppingservice.domain.entities.ShopReport;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopReport;
 
 import java.util.List;
 

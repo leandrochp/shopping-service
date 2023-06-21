@@ -1,6 +1,6 @@
 package com.github.leandrochp.shoppingservice.infrastructure.events.config;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

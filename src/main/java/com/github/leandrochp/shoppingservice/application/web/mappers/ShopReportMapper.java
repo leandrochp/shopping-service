@@ -1,7 +1,7 @@
 package com.github.leandrochp.shoppingservice.application.web.mappers;
 
 import com.github.leandrochp.shoppingservice.application.web.responses.ShopReportResponse;
-import com.github.leandrochp.shoppingservice.domain.entities.ShopReport;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopReport;
 import org.springframework.stereotype.Component;
 
 @Component

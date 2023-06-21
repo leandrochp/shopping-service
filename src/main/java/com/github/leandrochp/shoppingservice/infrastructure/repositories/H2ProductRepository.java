@@ -1,6 +1,6 @@
 package com.github.leandrochp.shoppingservice.infrastructure.repositories;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Product;
+import com.github.leandrochp.shoppingservice.domain.shopping.Product;
 import com.github.leandrochp.shoppingservice.domain.repositories.ProductRepository;
 import com.github.leandrochp.shoppingservice.infrastructure.repositories.entities.ProductEntity;
 import com.github.leandrochp.shoppingservice.infrastructure.repositories.jpas.ProductJpaRepository;

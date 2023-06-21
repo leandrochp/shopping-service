@@ -1,4 +1,4 @@
-package com.github.leandrochp.shoppingservice.domain.entities;
+package com.github.leandrochp.shoppingservice.domain.shopping;
 
 import com.github.leandrochp.shoppingservice.domain.enums.ShopStatus;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.github.leandrochp.shoppingservice.infrastructure.events;
 
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
 import com.github.leandrochp.shoppingservice.domain.services.ShopReportService;
 import com.github.leandrochp.shoppingservice.domain.services.ShopService;
 import lombok.RequiredArgsConstructor;

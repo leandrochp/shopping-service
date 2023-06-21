@@ -4,7 +4,7 @@ import com.github.leandrochp.shoppingservice.application.web.requests.ShopItemRe
 import com.github.leandrochp.shoppingservice.application.web.requests.ShopRequest;
 import com.github.leandrochp.shoppingservice.application.web.responses.ShopItemResponse;
 import com.github.leandrochp.shoppingservice.application.web.responses.ShopResponse;
-import com.github.leandrochp.shoppingservice.domain.entities.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
