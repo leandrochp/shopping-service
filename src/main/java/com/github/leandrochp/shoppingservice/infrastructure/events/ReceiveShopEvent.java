@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ReceiveShopTopicEventMessage {
+public class ReceiveShopEvent {
 
     private static final String SHOP_TOPIC_EVENT_NAME = "SHOP_TOPIC_EVENT";
 
@@ -19,14 +19,14 @@ public class ReceiveShopTopicEventMessage {
     private final ShopReportService shopReportService;
 
     @KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group")
-    public void listenShopTopicEvent(Shop shop) {
-        log.debug("Shop received in topic: [identifier: {}].", shop.getIdentifier());
+    public void listenShopEvent(Shop shop) {
+        log.debug("Shop received in topic [identifier: {}].", shop.getIdentifier());
         shopService.updateStatus(shop);
     }
 
     @KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group_report")
-    public void listenShopTopicEventToShopReport(Shop shop) {
-        log.debug("Shop received to increment shop status in topic: [identifier: {}].", shop.getIdentifier());
+    public void listenShopEventReport(Shop shop) {
+        log.debug("Shop received to increment shop status in topic [identifier: {}].", shop.getIdentifier());
         shopReportService.incrementShopStatus(shop);
     }
 

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ReceiveShopTopicMessage {
+public class ReceiveShopMessage {
 
     private static final String SHOP_TOPIC_NAME = "SHOP_TOPIC";
 
@@ -27,7 +27,7 @@ public class ReceiveShopTopicMessage {
             @Header(KafkaHeaders.RECEIVED_PARTITION_ID) String partitionId,
             @Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp) throws Exception {
         log.debug(
-                "Shop received in topic: [identifier: {}, key: {}, partition: {}, date: {}].",
+                "Shop received in topic [identifier: {}, key: {}, partition: {}, date: {}].",
                 shop.getIdentifier(),
                 key,
                 partitionId,

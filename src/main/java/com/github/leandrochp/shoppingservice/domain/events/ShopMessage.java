@@ -2,7 +2,7 @@ package com.github.leandrochp.shoppingservice.domain.events;
 
 import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
 
-public interface TopicMessage {
+public interface ShopMessage {
 
-    void sendTopic(Shop shop);
+    void send(Shop shop);
 }

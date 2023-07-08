@@ -1,20 +1,20 @@
 package com.github.leandrochp.shoppingservice.domain.services.impl;
 
-import com.github.leandrochp.shoppingservice.domain.shopping.Product;
-import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
-import com.github.leandrochp.shoppingservice.domain.shopping.ShopItem;
 import com.github.leandrochp.shoppingservice.domain.enums.ShopStatus;
-import com.github.leandrochp.shoppingservice.domain.events.TopicEventMessage;
-import com.github.leandrochp.shoppingservice.domain.events.TopicMessage;
+import com.github.leandrochp.shoppingservice.domain.events.ShopEvent;
+import com.github.leandrochp.shoppingservice.domain.events.ShopMessage;
 import com.github.leandrochp.shoppingservice.domain.repositories.ProductRepository;
 import com.github.leandrochp.shoppingservice.domain.repositories.ShopRepository;
 import com.github.leandrochp.shoppingservice.domain.services.ShopService;
+import com.github.leandrochp.shoppingservice.domain.shopping.Product;
+import com.github.leandrochp.shoppingservice.domain.shopping.Shop;
+import com.github.leandrochp.shoppingservice.domain.shopping.ShopItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -26,8 +26,8 @@ public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
     private final ProductRepository productRepository;
-    private final TopicMessage topicMessage;
-    private final TopicEventMessage topicEventMessage;
+    private final ShopMessage shopMessage;
+    private final ShopEvent shopEvent;
 
     @Override
     public List<Shop> findAll() {
@@ -45,8 +45,8 @@ public class ShopServiceImpl implements ShopService {
             log.debug("Saving shop [identifier: {}] in the database.", shop.getIdentifier());
             shopRepository.save(shop);
 
-            log.debug("Notifying listener of the shop [identifier: {}].", shop.getIdentifier());
-            topicMessage.sendTopic(shop);
+            log.debug("Notifying of the shop [identifier: {}].", shop.getIdentifier());
+            shopMessage.send(shop);
 
         } catch (Exception ex) {
             log.error("Error saving shop [identifier: {}]. Error: {}", shop.getIdentifier(), ex);
@@ -90,8 +90,8 @@ public class ShopServiceImpl implements ShopService {
                     break;
                 }
             }
-            log.debug("Send shop [identifier: {}] status {}.", shop.getIdentifier(), shop.getStatus());
-            topicEventMessage.sendTopicEvent(shop);
+            log.debug("Sending shop [identifier: {}] status {}.", shop.getIdentifier(), shop.getStatus());
+            shopEvent.send(shop);
 
         } catch (Exception ex) {
             log.error("Error validating shop [identifier: {}]. Error: {}", shop.getIdentifier(),
