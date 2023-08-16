@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class ReceiveShopMessage {
+public class ReceiveShopKafkaMessage {
 
     private static final String SHOP_TOPIC_NAME = "SHOP_TOPIC";
 
